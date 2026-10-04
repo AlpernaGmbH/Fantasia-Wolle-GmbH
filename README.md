@@ -3,20 +3,23 @@
 Website für Fantasia Wolle GmbH, Hauptstrasse 11, 9042 Speicher (Wolle, Mercerie und Geschenke).
 Statische Seite ohne Build-Schritt, gestaltet nach `docs/Fantasia-Corporate-Design.pdf`.
 
-**Stand:** Entwurf, nicht mit der Inhaberin (Susan Züst) abgestimmt. Erstellt von Alperna GmbH.
+**Stand:** veröffentlicht am 4. Oktober 2026 auf Vercel, noch ohne eigene Domain. Erstellt von Alperna GmbH.
 
 ## Aufbau
 
 ```
-public/               wird ausgeliefert (Vercel-Ausgabeverzeichnis)
-  index.html          Seite mit CSS und dem kleinen Skript für die Saison-Markierung
-  assets/img/         Logo und Fotos
-  assets/fonts/       Fraunces 600, Karla 400/500/700 (Latin, woff2), lokal ausgeliefert
-docs/                 Corporate Design (PDF), intern, wird nicht ausgeliefert
-vercel.json           Ausgabeverzeichnis und Header (noindex, nosniff, Referrer-Policy)
+public/                 wird ausgeliefert (Vercel-Ausgabeverzeichnis)
+  index.html            Startseite mit dem kleinen Skript für die Saison-Markierung
+  impressum.html        Impressum (/impressum)
+  datenschutz.html      Datenschutzerklärung (/datenschutz)
+  assets/site.css       gemeinsames Stylesheet aller Seiten
+  assets/img/           Logo und Fotos
+  assets/fonts/         Fraunces 600, Karla 400/500/700 (Latin, woff2), lokal ausgeliefert
+docs/                   Corporate Design (PDF), intern, wird nicht ausgeliefert
+vercel.json             Ausgabeverzeichnis, saubere URLs und Header (noindex, nosniff, Referrer-Policy)
 ```
 
-Ansehen: `public/index.html` im Browser öffnen oder `npx serve public` im Projektordner.
+Ansehen: `npx serve public` im Projektordner (die Unterseiten brauchen den Server, wegen der URLs ohne `.html`).
 
 ## Regeln aus dem Corporate Design (kurz)
 
@@ -28,7 +31,17 @@ Ansehen: `public/index.html` im Browser öffnen oder `npx serve public` im Proje
 - Logo mindestens 150 px breit, nie auf Rosa, nie verzerrt.
 - Schriften: Fraunces für Titel, Karla für Text, keine dritte Schrift.
 
-## Vor dem Livegang
+## Rechtliches pflegen
+
+Die Datenschutzerklärung stimmt nur, solange die Website **keine Cookies setzt, keine Reichweitenmessung oder Analyse nutzt, keine Formulare hat und nichts von Drittanbietern einbindet** (Karten, Videos, Schriften, Social-Plugins). Sobald sich daran etwas ändert, muss `public/datenschutz.html` vorher angepasst werden. Das gilt auch für einen Wechsel des Hostings oder der E-Mail-Adresse.
+
+Quellen der Angaben im Impressum:
+
+- UID CHE-108.623.814: Handelsregister (über help.ch und aili.ch gegengeprüft).
+- Susan Züst als Gesellschafterin und Geschäftsführerin: Handelsregister (dort als «Susanne» eingetragen, auf der Website und beim Haus zur Blume als «Susan» geführt).
+- «im Haus zur Blume», Öffnungszeiten, Telefon und E-Mail: stimmen mit zur-blume.ch überein.
+
+## Offene Punkte
 
 Von Frau Züst bestätigen lassen (nicht aus dem Corporate Design belegt):
 
@@ -36,17 +49,14 @@ Von Frau Züst bestätigen lassen (nicht aus dem Corporate Design belegt):
 2. «Wir rechnen Ihnen den Materialbedarf aus, bevor Sie kaufen»
 3. «Nähfaden in über hundert Farben», «auch einzeln»
 4. «Fertig gestrickte Stirnbänder, Socken und Kleinigkeiten», «auf Wunsch verpackt»
-5. Öffnungszeiten: Montag und Sonntag fehlen (geschlossen?)
-6. Saisonwechsel am Olma-Beginn oder nach der Olma (Skript am Ende von `public/index.html`; Olma-Beginn = zweiter Donnerstag im Oktober, 2026 am 8. Oktober)
-7. Zeile «im Haus zur Blume» in der Adresse
+5. Saisonwechsel am Olma-Beginn oder nach der Olma (Skript am Ende von `public/index.html`; Olma-Beginn = zweiter Donnerstag im Oktober, 2026 am 8. Oktober)
 
 Ausserdem:
 
 - Porträt von Susan Züst für den Abschnitt «Wer Sie berät» (fehlt).
 - Favicon (zwei Ballons auf schwarzem Kreis) braucht zuerst die Vektor-Nachzeichnung des Logos.
-- `noindex` entfernen: `<meta name="robots">` in `public/index.html` und der Header `X-Robots-Tag` in `vercel.json`.
-- Zeile «Entwurf, nicht abgestimmt · Alperna GmbH» in der Fusszeile ersetzen.
+- `noindex` entfernen, sobald die endgültige Domain steht: `<meta name="robots">` in `index.html`, `impressum.html` und `datenschutz.html` sowie der Header `X-Robots-Tag` in `vercel.json`.
 
 ## Deployment
 
-Vercel-Projekt `fantasia-wolle` (Team von `alperna-tool`), verbunden mit diesem Repository. Jeder Push auf `main` löst ein neues Deployment aus. Kein Build-Befehl, ausgeliefert wird nur `public/` (siehe `vercel.json`). `docs/` und `README.md` bleiben intern.
+Vercel-Projekt `fantasia-wolle` (Konto von `alperna-tool`), verbunden mit diesem Repository. Jeder Push auf `main` löst ein neues Deployment aus. Kein Build-Befehl, ausgeliefert wird nur `public/` (siehe `vercel.json`). `docs/` und `README.md` bleiben intern.
