@@ -38,7 +38,7 @@ Die Datenschutzerklärung stimmt nur, solange die Website **keine Cookies setzt,
 Quellen der Angaben im Impressum:
 
 - UID CHE-108.623.814: Handelsregister (über help.ch und aili.ch gegengeprüft).
-- Susan Züst als Gesellschafterin und Geschäftsführerin: Handelsregister (dort als «Susanne» eingetragen, auf der Website und beim Haus zur Blume als «Susan» geführt).
+- Susanne Züst als Gesellschafterin und Geschäftsführerin: Handelsregister. Das Impressum folgt dem amtlichen Vornamen «Susanne». Sonst heisst sie auf der Website und beim Haus zur Blume «Susan».
 - «im Haus zur Blume», Öffnungszeiten, Telefon und E-Mail: stimmen mit zur-blume.ch überein.
 
 ## Offene Punkte
