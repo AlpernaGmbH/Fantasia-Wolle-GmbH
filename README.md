@@ -14,7 +14,7 @@ public/                 wird ausgeliefert (Vercel-Ausgabeverzeichnis)
   impressum.html        Impressum (/impressum)
   datenschutz.html      Datenschutzerklärung (/datenschutz)
   assets/site.css       gemeinsames Stylesheet aller Seiten
-  assets/saison.js      markiert die geltende Saison bei den Öffnungszeiten (Startseite und Kontakt)
+  assets/saison.js      markiert die geltende Saison und setzt die genauen Daten (Ostern, Olma) bei den Öffnungszeiten ein
   assets/img/           Logo und Fotos
   assets/fonts/         Fraunces 600, Karla 400/500/700 (Latin, woff2), lokal ausgeliefert
 docs/                   Corporate Design (PDF), intern, wird nicht ausgeliefert
@@ -45,6 +45,8 @@ Quellen der Angaben im Impressum:
 - Susanne Züst als Gesellschafterin und Geschäftsführerin: Handelsregister. Das Impressum folgt dem amtlichen Vornamen «Susanne». Sonst heisst sie auf der Website und beim Haus zur Blume «Susan».
 - «im Haus zur Blume», Öffnungszeiten, Telefon und E-Mail: stimmen mit zur-blume.ch überein.
 - Öffnungszeiten inklusive «Montag und Sonntag geschlossen»: Google-Profil «Fantasia Wolle GmbH».
+- Haltestelle Bahnhof Speicher (rund 200 m, 3 Gehminuten): Fahrplandaten (transport.opendata.ch) für die Haltestellen «Speicher» (Bahnhof) und «Speicher, Bahnhof» (Bus), Fussweg nach OSM-Fussgängerrouting (197 und 215 m).
+- Olma 2026 (8.–18. Oktober): olma.ch. Ostern wird berechnet.
 
 ## Offene Punkte
 
@@ -54,10 +56,11 @@ Von Frau Züst bestätigen lassen (nicht aus dem Corporate Design belegt):
 2. «Wir rechnen Ihnen den Materialbedarf aus, bevor Sie kaufen»
 3. «Nähfaden in über hundert Farben», «auch einzeln»
 4. «Fertig gestrickte Stirnbänder, Socken und Kleinigkeiten», «auf Wunsch verpackt»
-5. Saisonwechsel am Olma-Beginn oder nach der Olma (`public/assets/saison.js`; Olma-Beginn = zweiter Donnerstag im Oktober, 2026 am 8. Oktober)
+5. Saisonwechsel am Olma-Beginn oder nach der Olma (`public/assets/saison.js`; Olma-Beginn = zweiter Donnerstag im Oktober, 2026 am 8. Oktober). Die Seite zeigt die Daten in der Form «Von Ostern (5. April 2026) bis zur Olma (8. Oktober 2026)» und geht vom Olma-Beginn aus.
 
 Ausserdem:
 
+- **Jedes Jahr nach der Olma:** den Olma-Beginn des nächsten Jahres in `OLMA_BESTAETIGT` in `public/assets/saison.js` eintragen. Bis dahin steht dort nur «Oktober <Jahr>», weil ein ungeprüftes Datum nicht angezeigt wird (2027 ist noch nicht veröffentlicht).
 - Porträt von Susan Züst für den Abschnitt «Wer Sie berät» (fehlt).
 - Fotos: Die Dateien sind nur 620 px breit (Hero 820 px). Auf Retina-Bildschirmen (MacBook, iPhone) wirken sie dadurch etwas weich. Für scharfe Bilder Originale mit mindestens 1600 px Breite einsetzen. Das Logo ist ein PNG ohne Vektorquelle (siehe Corporate Design).
 - Favicon (zwei Ballons auf schwarzem Kreis) braucht zuerst die Vektor-Nachzeichnung des Logos.

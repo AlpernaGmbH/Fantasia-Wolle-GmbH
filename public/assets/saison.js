@@ -1,13 +1,17 @@
 /*
-  Saison automatisch markieren (Zeit: Europe/Zurich).
+  Öffnungszeiten: geltende Saison markieren und die genauen Daten einsetzen (Zeit: Europe/Zurich).
   Sommerzeiten: Ostersonntag bis Olma-Beginn. Winterzeiten: Olma-Beginn bis Ostersonntag.
-  Olma-Beginn = zweiter Donnerstag im Oktober (2026: 8. Oktober, bestätigt auf olma.ch;
-  für andere Jahre abgeleitet, jährlich gegenprüfen). Ohne Skript bleibt keine Saison markiert,
-  der Text darüber erklärt den Wechsel trotzdem.
-  Falls Frau Züst erst nach der Olma (18. Oktober 2026) umstellt: in olma() Tage addieren.
+  Ostern wird berechnet (exakt). Der Olma-Beginn ist der zweite Donnerstag im Oktober.
+  Ein Datum wird nur angezeigt, wenn es in OLMA_BESTAETIGT steht (offizielle Angabe auf olma.ch).
+  Für andere Jahre steht «Oktober <Jahr>», bis das Datum dort ergänzt wird: jedes Jahr nach der
+  Olma den Beginn des nächsten Jahres eintragen. Ohne Skript bleiben Markierung und Daten weg,
+  der Text im Seitenkörper erklärt den Wechsel trotzdem.
+  Falls Frau Züst erst nach der Olma umstellt: in olma() Tage addieren und OLMA_BESTAETIGT anpassen.
 */
 (function () {
   try {
+    var OLMA_BESTAETIGT = { 2025: 9, 2026: 8 };
+    var MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
     var t = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Zurich', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-');
     var jahr = +t[0], heute = jahr * 10000 + (+t[1]) * 100 + (+t[2]);
     var num = function (d) { return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); };
@@ -22,12 +26,30 @@
       var ersterDonnerstag = 1 + (4 - new Date(y, 9, 1).getDay() + 7) % 7;
       return new Date(y, 9, ersterDonnerstag + 7);
     };
+    // Geschützte Leerzeichen, damit ein Datum nicht mitten im Text umbricht
+    var datum = function (d) { return d.getDate() + '. ' + MONATE[d.getMonth()] + ' ' + d.getFullYear(); };
+    var olmaText = function (y) { return OLMA_BESTAETIGT[y] ? OLMA_BESTAETIGT[y] + '. Oktober ' + y : 'Oktober ' + y; };
+
     var sommer = heute >= num(ostern(jahr)) && heute < num(olma(jahr));
-    var karte = document.querySelector('[data-saison="' + (sommer ? 'sommer' : 'winter') + '"]');
-    if (!karte) return;
-    karte.classList.add('zeit--aktiv');
-    karte.setAttribute('aria-current', 'true');
-    var marke = karte.querySelector('.jetzt');
-    if (marke) marke.hidden = false;
-  } catch (e) { /* ohne Markierung weiter */ }
+    // Jahr, in dem die gerade geltende (oder nächste) Saison beginnt
+    var sommerJ = sommer ? jahr : (heute >= num(olma(jahr)) ? jahr + 1 : jahr);
+    var winterJ = heute >= num(olma(jahr)) ? jahr : (sommer ? jahr : jahr - 1);
+
+    var texte = {
+      sommer: 'Von Ostern (' + datum(ostern(sommerJ)) + ') bis zur Olma (' + olmaText(sommerJ) + ')',
+      winter: 'Von der Olma (' + olmaText(winterJ) + ') bis Ostern (' + datum(ostern(winterJ + 1)) + ')'
+    };
+    ['sommer', 'winter'].forEach(function (saison) {
+      var zeile = document.querySelectorAll('[data-saison="' + saison + '"] .zeitraum');
+      for (var i = 0; i < zeile.length; i++) zeile[i].textContent = texte[saison];
+    });
+
+    var aktiv = document.querySelectorAll('[data-saison="' + (sommer ? 'sommer' : 'winter') + '"]');
+    for (var j = 0; j < aktiv.length; j++) {
+      aktiv[j].classList.add('zeit--aktiv');
+      aktiv[j].setAttribute('aria-current', 'true');
+      var marke = aktiv[j].querySelector('.jetzt');
+      if (marke) marke.hidden = false;
+    }
+  } catch (e) { /* ohne Markierung und Daten weiter */ }
 })();
