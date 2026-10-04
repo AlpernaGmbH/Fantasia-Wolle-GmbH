@@ -23,7 +23,7 @@ h1,h2,h3{font-family:var(--titel);font-weight:600;line-height:1.15;margin:0}
 p{margin:0 0 1rem} p:last-child{margin-bottom:0}
 :focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
 
-.wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(1.5rem,env(safe-area-inset-left));padding-right:max(1.5rem,env(safe-area-inset-right))}
 .band{padding:4rem 0}
 .band--schwarz{background:var(--schwarz);color:var(--weiss)}
 .band--weiss{background:var(--weiss)}
@@ -49,7 +49,7 @@ p{margin:0 0 1rem} p:last-child{margin-bottom:0}
 /* Magenta nur einmal pro Fläche; Text Magenta auf Weiss, Hover Weiss auf Tiefmagenta */
 .knopf{display:inline-flex;align-items:center;min-height:56px;background:var(--weiss);color:var(--magenta);border:2px solid var(--magenta);font-size:1.15rem;font-weight:700;text-decoration:none;padding:.7rem 1.75rem}
 .knopf:hover{background:var(--tief);border-color:var(--tief);color:var(--weiss)}
-.textlink{font-weight:500;text-underline-offset:.25em}
+.textlink{display:inline-flex;align-items:center;min-height:44px;font-weight:500;text-underline-offset:.25em}
 
 h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 .unter{margin-bottom:2rem;max-width:58ch}
@@ -63,8 +63,8 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 .zeit .jetzt{font-size:.9rem;font-weight:700;line-height:1.4;background:var(--schwarz);color:var(--weiss);padding:.15rem .75rem;border-radius:999px}
 .zeit .zeitraum{margin:.25rem 0 1.1rem;font-size:.95rem;font-weight:500}
 .tage{list-style:none;margin:0;padding:0}
-.tage li{display:grid;grid-template-columns:5.5rem 1fr;gap:0 1rem;padding:.2rem 0;line-height:1.5}
-.tage .tag{font-weight:500}
+.tage li{display:grid;grid-template-columns:7.25rem 1fr;gap:0 1rem;padding:.2rem 0;line-height:1.5}
+.tage .tag{font-weight:500;white-space:nowrap}
 .von-bis{white-space:nowrap}
 
 /* Sortiment */
@@ -78,7 +78,9 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 .person p{max-width:62ch}
 
 /* Bildpaar */
-.paar{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.paar-rahmen{background:var(--schwarz)}
+.paar{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:80rem;margin:0 auto}
+@media (min-width:761px){.paar .foto{aspect-ratio:4/3}}
 
 /* Kontakt: nur Weiss auf Schwarz */
 .kontakt{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
@@ -88,7 +90,7 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 .kontakt dt:first-child{margin-top:0}
 .kontakt dd{margin:.15rem 0 0;font-size:1.15rem}
 
-.fuss{background:var(--schwarz);color:var(--weiss);font-size:.9rem;padding:2.25rem 0 2.5rem}
+.fuss{background:var(--schwarz);color:var(--weiss);font-size:.9rem;padding:2.25rem 0 calc(2.5rem + env(safe-area-inset-bottom))}
 .fuss .wrap{display:flex;flex-wrap:wrap;gap:1.5rem 2rem;align-items:center;justify-content:space-between}
 .fuss-text{display:flex;flex-direction:column;text-align:right}
 .sozial{display:flex;gap:.5rem}
@@ -100,9 +102,10 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 @media (max-width:760px){
   body{font-size:18px}
   .band{padding:3rem 0} .hero{padding:1.5rem 0 2.5rem}
-  .hero .wrap,.zeiten,.sortiment,.kontakt{grid-template-columns:1fr;gap:2rem}
+  .hero .wrap,.zeiten,.kontakt{grid-template-columns:1fr;gap:2rem}
+  .sortiment{gap:2rem 1.25rem}
   .kopf .wrap{justify-content:flex-start} .kopf-tel{text-align:left}
-  .hero .foto{aspect-ratio:1/1}
+  .hero .foto{aspect-ratio:1/1;max-height:min(70vh,34rem)}
   .fuss-text{text-align:left}
 }
 
@@ -112,7 +115,6 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 .rechtliches a:focus-visible{outline-color:var(--weiss)}
 
 /* Rechtliche Seiten (Impressum, Datenschutz) */
-.kopf-zurueck{font-size:1.05rem;font-weight:500;text-underline-offset:.25em}
 .band.recht{padding:3.5rem 0 5rem}
 .recht .eyebrow{margin:0 0 .75rem;font-size:.95rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
 .recht h1{font-size:clamp(1.75rem,8vw,2.75rem);overflow-wrap:break-word;hyphens:auto}
@@ -127,7 +129,51 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 .prosa address{font-style:normal;margin:0 0 1rem}
 .prosa .stand{margin-top:3rem;font-weight:500}
 
+/* Kopf: Navigation */
+.kopf-rechts{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem}
+.hauptnav{display:flex;gap:0 1.5rem}
+.hauptnav a{display:inline-flex;align-items:center;min-height:44px;font-size:1.05rem;font-weight:500;text-underline-offset:.3em}
+.hauptnav a[aria-current="page"]{font-weight:700;text-decoration-thickness:2px}
+
+/* Knopf auf dunklem Grund: Schwarz auf Weiss, Hover Schwarz auf Rosa */
+.knopf--hell{background:var(--weiss);color:var(--schwarz);border-color:var(--weiss)}
+.knopf--hell:hover{background:var(--rosa);border-color:var(--rosa);color:var(--schwarz)}
+.knopf:focus-visible{outline-offset:3px}
+.band--schwarz .knopf:focus-visible,.band--schwarz .textlink:focus-visible{outline-color:var(--weiss)}
+.band--schwarz .textlink{color:var(--weiss)}
+.band--schwarz .aktionen{margin-top:2.5rem}
+.band--schwarz .lead{font-size:1.2rem;max-width:46ch;margin:0}
+
+/* Kontaktseite */
+.band.kontaktseite{padding-bottom:3.5rem}
+.kontaktseite .lead{font-size:1.2rem;max-width:46ch;margin:0 0 1.5rem}
+.kontaktseite .hinweis{margin:1.25rem 0 0;font-size:.95rem;font-weight:500;max-width:46ch}
+.kontaktseite .hinweis a{text-underline-offset:.2em}
+.kontakt-raster{display:grid;grid-template-columns:1fr;gap:3rem}
+.kontakt-raster h2{margin-bottom:.75rem}
+.kontakt-raster .unter{margin-bottom:1rem}
+.kontakt-raster .zeiten{grid-template-columns:1fr;margin-top:1rem}
+.daten dl{margin:0}
+.daten dt{font-size:.95rem;font-weight:500;margin-top:1.25rem}
+.daten dt:first-child{margin-top:0}
+.daten dd{margin:.15rem 0 0;font-size:1.15rem}
+.daten a{text-underline-offset:.2em;overflow-wrap:anywhere}
+@media (min-width:900px){
+  .kontakt-raster{grid-template-columns:.8fr 1.2fr;gap:4rem}
+}
+
 @media (max-width:760px){
   .band.recht{padding:2.5rem 0 3.5rem}
+  .band.kontaktseite{padding-bottom:2.5rem}
   .rechtliches{justify-content:flex-start}
+  .kopf-rechts{align-items:flex-start}
+}
+
+@media (max-width:479px){
+  .sortiment{grid-template-columns:1fr;gap:2rem}
+}
+
+@media (max-width:380px){
+  .zeit{padding:1.25rem}
+  .tage li{grid-template-columns:6rem 1fr;gap:0 .75rem}
 }
