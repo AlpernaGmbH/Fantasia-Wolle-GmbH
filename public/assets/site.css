@@ -147,8 +147,6 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:.5rem}
 /* Kontaktseite */
 .band.kontaktseite{padding-bottom:3.5rem}
 .kontaktseite .lead{font-size:1.2rem;max-width:46ch;margin:0 0 1.5rem}
-.kontaktseite .hinweis{margin:1.25rem 0 0;font-size:.95rem;font-weight:500;max-width:46ch}
-.kontaktseite .hinweis a{text-underline-offset:.2em}
 .kontakt-raster{display:grid;grid-template-columns:1fr;gap:3rem}
 .kontakt-raster h2{margin-bottom:.75rem}
 .kontakt-raster .unter{margin-bottom:1rem}
