@@ -8,14 +8,15 @@ Statische Seite ohne Build-Schritt, gestaltet nach `docs/Fantasia-Corporate-Desi
 ## Aufbau
 
 ```
-index.html            Seite mit CSS und dem kleinen Skript für die Saison-Markierung
-assets/img/           Logo und Fotos
-assets/fonts/         Fraunces 600, Karla 400/500/700 (Latin, woff2), lokal ausgeliefert
-docs/                 Corporate Design (PDF)
-vercel.json           Header (noindex, nosniff, Referrer-Policy)
+public/               wird ausgeliefert (Vercel-Ausgabeverzeichnis)
+  index.html          Seite mit CSS und dem kleinen Skript für die Saison-Markierung
+  assets/img/         Logo und Fotos
+  assets/fonts/       Fraunces 600, Karla 400/500/700 (Latin, woff2), lokal ausgeliefert
+docs/                 Corporate Design (PDF), intern, wird nicht ausgeliefert
+vercel.json           Ausgabeverzeichnis und Header (noindex, nosniff, Referrer-Policy)
 ```
 
-Ansehen: `index.html` im Browser öffnen oder `npx serve .` im Projektordner.
+Ansehen: `public/index.html` im Browser öffnen oder `npx serve public` im Projektordner.
 
 ## Regeln aus dem Corporate Design (kurz)
 
@@ -36,16 +37,16 @@ Von Frau Züst bestätigen lassen (nicht aus dem Corporate Design belegt):
 3. «Nähfaden in über hundert Farben», «auch einzeln»
 4. «Fertig gestrickte Stirnbänder, Socken und Kleinigkeiten», «auf Wunsch verpackt»
 5. Öffnungszeiten: Montag und Sonntag fehlen (geschlossen?)
-6. Saisonwechsel am Olma-Beginn oder nach der Olma (Skript am Ende von `index.html`; Olma-Beginn = zweiter Donnerstag im Oktober, 2026 am 8. Oktober)
+6. Saisonwechsel am Olma-Beginn oder nach der Olma (Skript am Ende von `public/index.html`; Olma-Beginn = zweiter Donnerstag im Oktober, 2026 am 8. Oktober)
 7. Zeile «im Haus zur Blume» in der Adresse
 
 Ausserdem:
 
 - Porträt von Susan Züst für den Abschnitt «Wer Sie berät» (fehlt).
 - Favicon (zwei Ballons auf schwarzem Kreis) braucht zuerst die Vektor-Nachzeichnung des Logos.
-- `noindex` entfernen: `<meta name="robots">` in `index.html` und der Header `X-Robots-Tag` in `vercel.json`.
+- `noindex` entfernen: `<meta name="robots">` in `public/index.html` und der Header `X-Robots-Tag` in `vercel.json`.
 - Zeile «Entwurf, nicht abgestimmt · Alperna GmbH» in der Fusszeile ersetzen.
 
 ## Deployment
 
-Vercel-Projekt `fantasia-wolle` (Team von `alperna-tool`), verbunden mit diesem Repository. Jeder Push auf `main` löst ein neues Deployment aus. Kein Build-Befehl, Ausgabeverzeichnis ist das Projektstammverzeichnis.
+Vercel-Projekt `fantasia-wolle` (Team von `alperna-tool`), verbunden mit diesem Repository. Jeder Push auf `main` löst ein neues Deployment aus. Kein Build-Befehl, ausgeliefert wird nur `public/` (siehe `vercel.json`). `docs/` und `README.md` bleiben intern.
